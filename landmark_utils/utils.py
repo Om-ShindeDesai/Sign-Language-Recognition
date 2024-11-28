@@ -74,3 +74,17 @@ def pre_process_landmark(landmark_list):
     temp_landmark_list = list(map(normalize_, temp_landmark_list))
 
     return temp_landmark_list
+
+
+def p_calc_landmark_list(image, landmarks):
+    image_width, image_height = image.shape[1], image.shape[0]
+
+    landmark_points = []
+
+    # Pose landmarks have 33 points
+    for landmark in landmarks.landmark[:33]:
+        landmark_x = min(int(landmark.x * image_width), image_width - 1)
+        landmark_y = min(int(landmark.y * image_height), image_height - 1)
+        landmark_points.append([landmark_x, landmark_y])
+
+    return landmark_points
